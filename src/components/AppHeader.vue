@@ -1,12 +1,32 @@
 <template>
   <header class="app-header">
-    <h1>Tarefas</h1>
+    <h1>Meus gestor de Tarefas!!!!</h1>
     <nav>
       <router-link to="/">Início</router-link>
       <router-link to="/about">Sobre</router-link>
+      <button
+        v-if="authStore.isAuthenticated"
+        class="logout-btn"
+        @click="handleLogout"
+      >
+        Sair
+      </button>
     </nav>
   </header>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+function handleLogout() {
+  authStore.logout();
+  router.push('/login');
+}
+</script>
 
 <style scoped>
 .app-header {
@@ -16,6 +36,7 @@
   padding: 16px 0;
   border-bottom: 2px solid #4a90d9;
   margin-bottom: 24px;
+
 }
 
 .app-header h1 {
@@ -38,4 +59,11 @@ nav a {
 nav a.router-link-active {
   color: #4a90d9;
 }
+
+button{
+  background-color: #4a90d9;
+  color: white;
+  border: none;
+  padding: 8px;
+  }
 </style>
